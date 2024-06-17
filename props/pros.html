@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function App() {
+      <div></div>;
+    }
+    const root = document.getElementById("root"); //root를 가져 오게된다 어디에서 ? div에서
+    ReactDOM.render(<App />, root);
+    // 그러고 여기서 dom을 통해 root를 사용 할 수 있다.
+  </script>
+</html>
