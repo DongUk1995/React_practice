@@ -7,11 +7,37 @@
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    function App() {
-      <div></div>;
+    function Btn({ text, changeValue }) {
+      //pros는 오브젝트 {}이기 때문에 banana를 받을 수 있다. 위 처럼하면 그냥 지름길 즉 쉽게 사용하는 방법이다.
+      return (
+        <button
+          onClick={changeValue}
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 2opx",
+            border: 0,
+            borderRadius: 10,
+            fontSize: 16,
+          }}
+        >
+          {text}
+        </button>
+      );
     }
-    const root = document.getElementById("root"); //root를 가져 오게된다 어디에서 ? div에서
+    //const MemorizedBtn = React.memo(Btn);
+    function App() {
+      const [value, setValue] = React.useState("save Change");
+      const changeValue = () => setValue("Revert Changes");
+      // App 컴포넌트의 Btn은 그냥 단지 props 이름이지 onClick 같은 이벤트 기능을 가지고 있지 않다. ex) style={{cloro:"green"}}을 해도 그린으로 변화하지 x
+      return (
+        <div>
+          <Btn text={value} changeValue={changeValue} />
+          <Btn text="Continue" />
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
     ReactDOM.render(<App />, root);
-    // 그러고 여기서 dom을 통해 root를 사용 할 수 있다.
   </script>
 </html>
