@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function MinutesTohours() {
+      const [amount, setAmount] = React.useState();
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const Reset = () => setAmount(0);
+      const onInvert = () => {
+        Reset();
+        setInverted((current) => !current);
+      };
+      return (
+        <div>
+          <div>
+            <label htmlFor="minutes">Minutes</label>
+            <input
+              value={inverted ? amount * 60 : amount}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+              disabled={inverted}
+            />
+          </div>
+          <div>
+            <label htmlFor="hours">Hours</label>
+            <input
+              value={inverted ? amount : Math.round(amount / 60)}
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              disabled={!inverted}
+              onChange={onChange}
+            />
+          </div>
+          <div>
+            <button onClick={Reset}>Reset</button>
+            <button onClick={onInvert}>
+              {inverted ? "Turn Back" : "Invert"}
+            </button>
+          </div>
+        </div>
+      );
+    }
+    function KmToMiles() {
+      const [amount, setAmount] = React.useState();
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const Reset = () => setAmount(0);
+      const onInvert = () => {
+        Reset();
+        setInverted((current) => !current);
+      };
+      return (
+        <div>
+          <div>
+            <div>
+              <label htmlFor="km">km</label>
+              <input
+                value={inverted ? amount * 1.609 : amount}
+                id="km"
+                placeholder="Km"
+                type="number"
+                onChange={onChange}
+                disabled={inverted}
+              ></input>
+            </div>
+            <div>
+              <label htmlFor="miles">Miles</label>
+              <input
+                value={inverted ? amount : Math.round(amount / 1.609)}
+                id="miles"
+                placeholder="Miles"
+                type="number"
+                onChange={onChange}
+                disabled={!inverted}
+              ></input>
+            </div>
+            <div>
+              <button onClick={Reset}>Reset</button>
+              <button onClick={onInvert}>
+                {inverted ? "Turn Back" : "Invert"}
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function App() {
+      const [index, setIndex] = React.useState(); // value 값을 받아서 setIndex에 입력을 하면 밑에 컴포넌트는 초기화 비슷한 것을 하고 index에 값에 저장
+      const onSelect = (event) => {
+        setIndex(event.target.value);
+      };
+      return (
+        <div>
+          <h1 className="hi">Super Converter</h1>
+          <select value={index} onChange={onSelect}>
+            <option value="xx">select your units</option>
+            <option value="0">Minutes & Hours</option>
+            <option value="1">Km & Miles</option>
+          </select>
+          <hr />
+          {index === "xx" ? "Please Select your Units" : null}
+          {index === "0" ? <MinutesTohours /> : null}
+          {index === "1" ? <KmToMiles /> : null}
+        </div>
+      );
+    }
+    const root = document.getElementById("root"); //root를 가져 오게된다 어디에서 ? div에서
+    ReactDOM.render(<App />, root);
+    // 그러고 여기서 dom을 통해 root를 사용 할 수 있다.
+  </script>
+</html>
